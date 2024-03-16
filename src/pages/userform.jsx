@@ -22,7 +22,6 @@ import { motion } from "framer-motion";
  * @return {JSX.Element} The LoginForm component to be rendered.
  */
 export const UserForm = () => {
-  console.log(window.location.href);
   const navigator = useNavigate();
   const [cookies, _] = useCookies(["token"]);
   const user_url = import.meta.env.VITE_USER_URL;

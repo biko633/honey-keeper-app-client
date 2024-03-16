@@ -12,7 +12,6 @@ import { clearContent } from "../utils/cleanContent.jsx";
 //////// TEST THE ADD TO LOCAL STORAGE AND SAVE IT HERE THEN REMOVE IT //////////////
 
 export const Home = () => {
-  console.log(window.location.href);
   axios.defaults.withCredentials = true;
   const navigator = useNavigate();
   const [userID, setUserID] = useState("");
