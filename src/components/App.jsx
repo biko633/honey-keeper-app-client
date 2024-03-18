@@ -47,8 +47,8 @@ function App() {
         <Router>
           <Header switchTheme={switchTheme} theme={theme} />
           <Routes>
-            <Route path="/" element={<UserForm />} />
-            <Route path="/auth" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<UserForm />} />
             <Route path="/auth/ForgotPassword" element={<ForgotPassword />} />
             <Route
               path="/auth/resetQuestion/:token"
