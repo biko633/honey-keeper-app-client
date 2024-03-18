@@ -49,6 +49,8 @@ export const Home = () => {
             token: token,
           },
         });
+        console.log("we got response");
+        console.log(response);
 
         if (response.data.empty) {
           ("we got empty response");
