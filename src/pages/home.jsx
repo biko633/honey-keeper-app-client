@@ -42,8 +42,13 @@ export const Home = () => {
 
   useEffect(() => {
     async function getID() {
-      const token = cookies.token;
-      console.log("the cookies is" + JSON.stringify(token));
+      // const token = cookies.token;
+      const token = document.cookie
+        .split(";")
+        .map((cookie) => cookie.trim())
+        .find((cookie) => cookie.startsWith("token="))
+        .split("=")[1];
+      // console.log("the cookies is" + JSON.stringify(token));
       console.log("the token is " + token);
       try {
         const response = await axios.get(user_url + "/userId", {
