@@ -32,7 +32,9 @@ export const Home = () => {
   const fetchNotes = async () => {
     try {
       const response = await axios.get(note_url + "/savedNotes", {
-        token: token,
+        headers: {
+          Authorization: token,
+        },
       });
       if (response.data.no_token) {
         console.log("the userId is " + tempId.current);
@@ -107,7 +109,9 @@ export const Home = () => {
     const saveNote = async () => {
       try {
         const response = await axios.post(note_url + `/${userID}`, note, {
-          token: token,
+          headers: {
+            Authorization: token,
+          },
         });
         console.log(response);
 
@@ -117,7 +121,9 @@ export const Home = () => {
           const response_2 = await axios.put(note_url, {
             noteID: response.data._id,
             userID,
-            token: token,
+            headers: {
+              Authorization: token,
+            },
           });
           setNotes((prevNotes) => {
             return [...prevNotes, response.data];
@@ -146,7 +152,9 @@ export const Home = () => {
         const response = await axios.put(note_url + "/deletedNote", {
           userID,
           noteID: this.did,
-          token: token,
+          headers: {
+            Authorization: token,
+          },
         });
         if (response.data.no_token) {
           handelRefreshToken(userID);
