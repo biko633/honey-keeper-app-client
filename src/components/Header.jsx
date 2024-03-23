@@ -20,7 +20,7 @@ import useLocalStorage from "use-local-storage";
  */
 export const Header = ({ switchTheme, theme }) => {
   // const [cookies, setCookies] = useCookies(["token"]);
-  const [token, _] = useLocalStorage("token", "");
+  const [token, setToken] = useLocalStorage("token", "");
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -81,6 +81,7 @@ export const Header = ({ switchTheme, theme }) => {
                     onClick={() => {
                       handleClose();
                       Logout();
+                      setToken(undefined);
                       setTimeout(() => {
                         navigate("/auth");
                         toast.success("Successfully logged out");
