@@ -24,7 +24,7 @@ export default async function Logout() {
       },
     });
     if (response_2.data.status === "Success") {
-      setToken("");
+      setToken(undefined);
       console.log(response_2.data.status);
     } else {
       console.log(response_2.data.status);
