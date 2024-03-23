@@ -33,6 +33,7 @@ export const Home = () => {
     try {
       const response = await axios.get(note_url + "/savedNotes");
       if (response.data.no_token) {
+        console.log("the userId is " + tempId.current);
         handelRefreshToken(tempId.current);
       } else if (response.data.notes) {
         setNotes(response.data.notes);
