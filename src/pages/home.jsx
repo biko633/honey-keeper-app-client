@@ -105,6 +105,7 @@ export const Home = () => {
     const saveNote = async () => {
       try {
         const response = await axios.post(note_url + `/${userID}`, note);
+        console.log(response);
 
         if (response.data.no_token) {
           handelRefreshToken(userID);
