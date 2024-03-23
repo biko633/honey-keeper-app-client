@@ -65,6 +65,7 @@ const LoginForm = () => {
   );
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
+  const [token, setToken] = useLocalStorage("token", "");
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
