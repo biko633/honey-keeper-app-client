@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
 import toast from "react-hot-toast";
-import Logout from "./Logout.jsx";
+// import Logout from "./Logout.jsx";
 import DarkMode from "./Darkmodebutton.jsx";
 import useLocalStorage from "use-local-storage";
 
@@ -80,7 +80,7 @@ export const Header = ({ switchTheme, theme }) => {
                   <MenuItem
                     onClick={() => {
                       handleClose();
-                      Logout();
+                      // Logout();
                       setToken(undefined);
                       setTimeout(() => {
                         navigate("/auth");
