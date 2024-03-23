@@ -75,28 +75,25 @@ export const Home = () => {
   /////////////////////// LOGOUT USER WHEN REFRESH TOKEN IS EXPIRED /////////////////////
   const handelRefreshToken = async (user_id) => {
     try {
-      const checkRefresh = await axios.get(
-        refresh_url + "/check_refreshToken",
-        {
-          params: { id: user_id },
-        }
-      );
-      if (checkRefresh.data.message === "Not Found") {
-        toast(
-          "You have been inactive for too long and your token is expired. Please login again"
-        );
-        navigator("/auth");
-      } else if (checkRefresh.data.message === "Found") {
-        const response = await axios.get(refresh_url + "/add_refreshToken", {
-          params: { id: user_id },
-        });
+      const checkRefresh = await axios.get(refresh_url + "/check_token", {
+        params: { token: token },
+      });
+      // if (checkRefresh.data.message === "Not Found") {
+      //   toast(
+      //     "You have been inactive for too long and your token is expired. Please login again"
+      //   );
+      //   navigator("/auth");
+      if (checkRefresh.data.message === "Found") {
+        // const response = await axios.get(refresh_url + "/add_refreshToken", {
+        //   params: { id: user_id },
+        // });
         const response_2 = await axios.get(refresh_url + "/add_AccessToken", {
           params: { id: user_id },
         });
         setToken(response_2.data.token);
         setNotes([...notes]);
 
-        toast.success("Your session has been refreshed try again");
+        // toast.success("Your session has been refreshed try again");
       } else {
         navigator("/auth");
       }
