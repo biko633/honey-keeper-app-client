@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import HiveIcon from "@mui/icons-material/Hive";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -9,6 +9,7 @@ import Popover from "@mui/material/Popover";
 import toast from "react-hot-toast";
 import Logout from "./Logout.jsx";
 import DarkMode from "./Darkmodebutton.jsx";
+import useLocalStorage from "use-local-storage";
 
 /**
  * Renders the header component with theme switching and user authentication functionalities.
@@ -18,7 +19,8 @@ import DarkMode from "./Darkmodebutton.jsx";
  * @return {JSX.Element} The header component UI
  */
 export const Header = ({ switchTheme, theme }) => {
-  const [cookies, setCookies] = useCookies(["token"]);
+  // const [cookies, setCookies] = useCookies(["token"]);
+  const [token, _] = useLocalStorage("token", "");
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,7 +41,7 @@ export const Header = ({ switchTheme, theme }) => {
           Honey Keeper
         </h1>
         <DarkMode switchTheme={switchTheme} theme={theme} />
-        {cookies.token === undefined ? (
+        {token === "" ? (
           <></>
         ) : (
           <>
@@ -78,7 +80,7 @@ export const Header = ({ switchTheme, theme }) => {
                   <MenuItem
                     onClick={() => {
                       handleClose();
-                      Logout(cookies);
+                      Logout();
                       setTimeout(() => {
                         navigate("/auth");
                         toast.success("Successfully logged out");

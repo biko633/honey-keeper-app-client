@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import Note from "../components/Note.jsx";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useErrorBoundary } from "react-error-boundary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { RichTextEditor } from "../components/RichTextEditor.jsx";
 import { clearContent } from "../utils/cleanContent.jsx";
+import useLocalStorage from "use-local-storage";
 
 //////// TEST THE ADD TO LOCAL STORAGE AND SAVE IT HERE THEN REMOVE IT //////////////
 
@@ -21,7 +22,8 @@ export const Home = () => {
     content: "",
   });
   const [notes, setNotes] = useState([]);
-  const [cookies, _] = useCookies(["token"]);
+  // const [cookies, _] = useCookies(["token"]);
+  const [token, setToken] = useLocalStorage("token", "");
   const note_url = import.meta.env.VITE_NOTE_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
   const user_url = import.meta.env.VITE_USER_URL;
@@ -42,8 +44,8 @@ export const Home = () => {
 
   useEffect(() => {
     async function getID() {
-      const token = cookies.token;
-      console.log("the cookies is" + JSON.stringify(token));
+      // const token = cookies.token;
+      // console.log("the cookies is" + JSON.stringify(token));
       console.log("the token is " + token);
       try {
         const response = await axios.get(user_url + "/userId", {
@@ -90,6 +92,7 @@ export const Home = () => {
         const response_2 = await axios.get(refresh_url + "/add_AccessToken", {
           params: { id: user_id },
         });
+        setToken(response_2.data.token);
         setNotes([...notes]);
 
         toast.success("Your session has been refreshed try again");

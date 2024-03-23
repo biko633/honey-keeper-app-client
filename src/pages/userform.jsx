@@ -10,9 +10,10 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import toast from "react-hot-toast";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useErrorBoundary } from "react-error-boundary";
 import { motion } from "framer-motion";
+import useLocalStorage from "use-local-storage";
 
 /**
  * Initializes the UserForm component. Retrieves the user ID using a token from cookies,
@@ -23,12 +24,13 @@ import { motion } from "framer-motion";
  */
 export const UserForm = () => {
   const navigator = useNavigate();
-  const [cookies, _] = useCookies(["token"]);
+  const [token, setToken] = useLocalStorage("token", "");
+  // const [cookies, _] = useCookies(["token"]);
   const user_url = import.meta.env.VITE_USER_URL;
 
   useEffect(() => {
     async function getID() {
-      const token = cookies.token;
+      // const token = cookies.token;
       const response = await axios.get(user_url + "/userId", {
         params: {
           token: token,
@@ -138,6 +140,7 @@ const LoginForm = () => {
               toast.error(response.data.error);
               setRegBut(false);
             } else if (response.data.Success) {
+              setToken(response.data.token);
               const response_refresh = await axios.get(
                 refresh_url + "/add_refreshToken",
                 {
@@ -166,6 +169,7 @@ const LoginForm = () => {
             toast.error(response.data.error);
             setLogBut(false);
           } else if (response.data.Success) {
+            setToken(response.data.token);
             const response_refresh = await axios.get(
               refresh_url + "/add_refreshToken",
               {

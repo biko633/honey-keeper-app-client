@@ -23,6 +23,7 @@ function App() {
     "theme",
     defaultDark ? "dark" : "light"
   );
+  const [token, setToken] = useLocalStorage("token", "");
   const switchTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -39,8 +40,9 @@ function App() {
       <ErrorBoundary
         FallbackComponent={HandelError}
         onReset={() => {
-          document.cookie =
-            "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          // document.cookie =
+          //   "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          setToken("");
           location.href = "/auth";
         }}
       >
