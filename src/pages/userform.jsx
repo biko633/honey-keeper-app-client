@@ -92,7 +92,7 @@ const LoginForm = () => {
   };
 
   const loginFunction = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       const response = await axios.post(user_url + "/login", {
         username: username,
@@ -127,7 +127,7 @@ const LoginForm = () => {
   };
 
   const registerFunction = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       if (
         (recover === "email" && email === "") ||
