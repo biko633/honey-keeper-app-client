@@ -118,7 +118,7 @@ export const Home = () => {
         // if (response.data.no_token) {
         //   handelRefreshToken(userID);
         // } else {
-        const response_2 = await axios.put(note_url, {
+        const response_2 = await axios.post(note_url, {
           noteID: response.data._id,
           userID,
           headers: {
@@ -155,7 +155,7 @@ export const Home = () => {
 
   const deleteNoteServer = async (NID) => {
     try {
-      const response = await axios.put(note_url + "/deletedNote", {
+      const response = await axios.post(note_url + "/deletedNote", {
         headers: {
           Authorization: token,
         },
