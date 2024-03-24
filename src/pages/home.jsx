@@ -158,6 +158,7 @@ export const Home = () => {
           },
         });
         console.log(response);
+        console.log("delete note " + token);
         // if (response.data.no_token) {
         //   handelRefreshToken(userID);
         // }
