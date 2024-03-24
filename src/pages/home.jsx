@@ -147,6 +147,7 @@ export const Home = () => {
         return index !== id;
       });
     });
+    console.log("the notes is " + notes);
     const deleteNoteServer = async () => {
       try {
         const response = await axios.put(note_url + "/deletedNote", {
@@ -156,6 +157,7 @@ export const Home = () => {
             Authorization: token,
           },
         });
+        console.log(response);
         if (response.data.no_token) {
           handelRefreshToken(userID);
         }

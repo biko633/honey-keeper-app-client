@@ -171,15 +171,15 @@ const LoginForm = () => {
             setLogBut(false);
           } else if (response.data.Success) {
             setToken(response.data.token);
-            const response_refresh = await axios.get(
-              refresh_url + "/add_refreshToken",
-              {
-                params: { id: response.data.id },
-              }
-            );
-            if (response_refresh.data.error) {
-              showBoundary(response_refresh.data.error);
-            }
+            // const response_refresh = await axios.get(
+            //   refresh_url + "/add_refreshToken",
+            //   {
+            //     params: { id: response.data.id },
+            //   }
+            // );
+            // if (response_refresh.data.error) {
+            //   showBoundary(response_refresh.data.error);
+            // }
             setLogBut(false);
             toast.success("Successfully Logged In");
             navigator("/");
