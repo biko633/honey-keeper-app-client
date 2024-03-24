@@ -173,6 +173,7 @@ const LoginForm = () => {
           } else if (response.data.Success) {
             console.log("success is here " + response.data.Success);
             const newToken = response.data.token;
+            console.log("tgrehtr " + newToken);
             setToken(newToken);
             // const response_refresh = await axios.get(
             //   refresh_url + "/add_refreshToken",
