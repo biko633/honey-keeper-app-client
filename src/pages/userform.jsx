@@ -91,7 +91,7 @@ const LoginForm = () => {
     navigator("/auth/ForgotPassword");
   };
 
-  const handelToken = (tempToken) => {
+  const handelToken = async (tempToken) => {
     setToken(tempToken);
   };
 
