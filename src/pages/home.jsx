@@ -118,12 +118,10 @@ export const Home = () => {
         // if (response.data.no_token) {
         //   handelRefreshToken(userID);
         // } else {
-        const response_2 = await axios.put(note_url, {
+        const response_2 = await axios.post(note_url, {
           noteID: response.data._id,
           userID,
-          headers: {
-            Authorization: token,
-          },
+          Authorization: token,
         });
         console.log("this is response 2 " + response_2);
         setNotes((prevNotes) => {
@@ -155,10 +153,8 @@ export const Home = () => {
 
   const deleteNoteServer = async (NID) => {
     try {
-      const response = await axios.put(note_url + "/deletedNote", {
-        headers: {
-          Authorization: token,
-        },
+      const response = await axios.post(note_url + "/deletedNote", {
+        Authorization: token,
         userID,
         noteID: NID,
       });
