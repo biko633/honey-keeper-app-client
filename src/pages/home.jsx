@@ -125,6 +125,7 @@ export const Home = () => {
             Authorization: token,
           },
         });
+        console.log("this is response 2 " + response_2);
         setNotes((prevNotes) => {
           return [...prevNotes, response.data];
         });
