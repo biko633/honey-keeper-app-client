@@ -148,26 +148,27 @@ export const Home = () => {
       });
     });
     console.log("the notes is " + notes);
-    const deleteNoteServer = async () => {
-      try {
-        const response = await axios.put(note_url + "/deletedNote", {
-          userID,
-          noteID: this.did,
-          headers: {
-            Authorization: token,
-          },
-        });
-        console.log(response);
-        console.log("delete note " + token);
-        // if (response.data.no_token) {
-        //   handelRefreshToken(userID);
-        // }
-      } catch (err) {
-        showBoundary(err);
-      }
-    };
     deleteNoteServer();
   }
+
+  const deleteNoteServer = async () => {
+    try {
+      const response = await axios.put(note_url + "/deletedNote", {
+        userID,
+        noteID: this.did,
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log(response);
+      console.log("delete note " + token);
+      // if (response.data.no_token) {
+      //   handelRefreshToken(userID);
+      // }
+    } catch (err) {
+      showBoundary(err);
+    }
+  };
 
   const get_title = (event) => {
     const { name, value } = event.target;
