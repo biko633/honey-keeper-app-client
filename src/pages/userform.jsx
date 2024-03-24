@@ -66,6 +66,7 @@ const LoginForm = () => {
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
   const [token, setToken] = useLocalStorage("token", "");
+  const [_, setTokenLogin] = useLocalStorage("token", "");
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
@@ -174,7 +175,7 @@ const LoginForm = () => {
             console.log("success is here " + response.data.Success);
             const newToken = response.data.token;
             console.log("tgrehtr " + newToken);
-            setToken(newToken);
+            setTokenLogin(newToken);
             // const response_refresh = await axios.get(
             //   refresh_url + "/add_refreshToken",
             //   {
