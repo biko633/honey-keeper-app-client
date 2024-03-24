@@ -65,7 +65,7 @@ const LoginForm = () => {
   );
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
-
+  const [token, setToken] = useLocalStorage("token", "");
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
@@ -93,7 +93,6 @@ const LoginForm = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const [token, setToken] = useLocalStorage("token", "");
     const btn = document.getElementsByClassName("button-22");
     for (let i = 0; i < btn.length; i++) {
       btn[i].disabled = true;
@@ -167,10 +166,12 @@ const LoginForm = () => {
             password: password,
             remember: isRemember,
           });
+          console.log(response);
           if (response.data.error) {
             toast.error(response.data.error);
             setLogBut(false);
           } else if (response.data.Success) {
+            setToken(response.data.token);
             setToken(response.data.token);
             // const response_refresh = await axios.get(
             //   refresh_url + "/add_refreshToken",
