@@ -66,7 +66,6 @@ const LoginForm = () => {
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
   const [token, setToken] = useLocalStorage("token", "");
-  const [_, setTokenLogin] = useLocalStorage("token", "");
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
@@ -92,6 +91,92 @@ const LoginForm = () => {
     navigator("/auth/ForgotPassword");
   };
 
+  const loginFunction = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(user_url + "/login", {
+        username: username,
+        password: password,
+        remember: isRemember,
+      });
+      console.log(response);
+      if (response.data.error) {
+        toast.error(response.data.error);
+        setLogBut(false);
+      } else if (response.data.Success) {
+        console.log("success is here " + response.data.Success);
+        const newToken = response.data.token;
+        console.log("tgrehtr " + newToken);
+        setToken(newToken);
+        // const response_refresh = await axios.get(
+        //   refresh_url + "/add_refreshToken",
+        //   {
+        //     params: { id: response.data.id },
+        //   }
+        // );
+        // if (response_refresh.data.error) {
+        //   showBoundary(response_refresh.data.error);
+        // }
+        setLogBut(false);
+        toast.success("Successfully Logged In");
+        navigator("/");
+      }
+    } catch (err) {
+      showBoundary(err);
+    }
+  };
+
+  const registerFunction = async (event) => {
+    event.preventDefault();
+    try {
+      if (
+        (recover === "email" && email === "") ||
+        email.includes(" ") === true
+      ) {
+        toast.error("please submit an email address without spaces");
+      } else if (recover === "question" && answer === "") {
+        toast.error("please submit an answer");
+      } else {
+        const response = await axios.post(user_url + "/register", {
+          username: username,
+          password: password,
+          recover:
+            recover === "email"
+              ? { email: email }
+              : recover === "question"
+              ? { question: question, answer: answer }
+              : { nothing: true },
+          type:
+            recover === "email"
+              ? "email"
+              : recover === "question"
+              ? "answer"
+              : "nothing",
+        });
+
+        if (response.data.error) {
+          toast.error(response.data.error);
+          setRegBut(false);
+        } else if (response.data.Success) {
+          setToken(response.data.token);
+          const response_refresh = await axios.get(
+            refresh_url + "/add_refreshToken",
+            {
+              params: { id: response.data.id },
+            }
+          );
+          if (response_refresh.data.error) {
+            showBoundary(response_refresh.data.error);
+          }
+          setRegBut(false);
+          toast.success("Successfully Registered");
+          navigator("/");
+        }
+      }
+    } catch (err) {
+      showBoundary(err);
+    }
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
     const btn = document.getElementsByClassName("button-22");
@@ -112,86 +197,9 @@ const LoginForm = () => {
     } else {
       axios.defaults.withCredentials = true;
       if (RegBut) {
-        try {
-          if (
-            (recover === "email" && email === "") ||
-            email.includes(" ") === true
-          ) {
-            toast.error("please submit an email address without spaces");
-          } else if (recover === "question" && answer === "") {
-            toast.error("please submit an answer");
-          } else {
-            const response = await axios.post(user_url + "/register", {
-              username: username,
-              password: password,
-              recover:
-                recover === "email"
-                  ? { email: email }
-                  : recover === "question"
-                  ? { question: question, answer: answer }
-                  : { nothing: true },
-              type:
-                recover === "email"
-                  ? "email"
-                  : recover === "question"
-                  ? "answer"
-                  : "nothing",
-            });
-
-            if (response.data.error) {
-              toast.error(response.data.error);
-              setRegBut(false);
-            } else if (response.data.Success) {
-              setToken(response.data.token);
-              const response_refresh = await axios.get(
-                refresh_url + "/add_refreshToken",
-                {
-                  params: { id: response.data.id },
-                }
-              );
-              if (response_refresh.data.error) {
-                showBoundary(response_refresh.data.error);
-              }
-              setRegBut(false);
-              toast.success("Successfully Registered");
-              navigator("/");
-            }
-          }
-        } catch (err) {
-          showBoundary(err);
-        }
+        registerFunction();
       } else if (LogBut) {
-        try {
-          const response = await axios.post(user_url + "/login", {
-            username: username,
-            password: password,
-            remember: isRemember,
-          });
-          console.log(response);
-          if (response.data.error) {
-            toast.error(response.data.error);
-            setLogBut(false);
-          } else if (response.data.Success) {
-            console.log("success is here " + response.data.Success);
-            const newToken = response.data.token;
-            console.log("tgrehtr " + newToken);
-            setTokenLogin(newToken);
-            // const response_refresh = await axios.get(
-            //   refresh_url + "/add_refreshToken",
-            //   {
-            //     params: { id: response.data.id },
-            //   }
-            // );
-            // if (response_refresh.data.error) {
-            //   showBoundary(response_refresh.data.error);
-            // }
-            setLogBut(false);
-            toast.success("Successfully Logged In");
-            navigator("/");
-          }
-        } catch (err) {
-          showBoundary(err);
-        }
+        loginFunction();
       }
     }
     setTimeout(() => {
