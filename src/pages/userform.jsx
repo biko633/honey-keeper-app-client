@@ -91,6 +91,10 @@ const LoginForm = () => {
     navigator("/auth/ForgotPassword");
   };
 
+  const handelToken = (tempToken) => {
+    setToken(tempToken);
+  };
+
   const loginFunction = async (event) => {
     // event.preventDefault();
     try {
@@ -107,7 +111,8 @@ const LoginForm = () => {
         console.log("success is here " + response.data.Success);
         const newToken = response.data.token;
         console.log("tgrehtr " + newToken);
-        setToken(newToken);
+        handelToken(newToken);
+        // setToken(newToken);
         // const response_refresh = await axios.get(
         //   refresh_url + "/add_refreshToken",
         //   {
@@ -158,16 +163,17 @@ const LoginForm = () => {
           toast.error(response.data.error);
           setRegBut(false);
         } else if (response.data.Success) {
-          setToken(response.data.token);
-          const response_refresh = await axios.get(
-            refresh_url + "/add_refreshToken",
-            {
-              params: { id: response.data.id },
-            }
-          );
-          if (response_refresh.data.error) {
-            showBoundary(response_refresh.data.error);
-          }
+          // setToken(response.data.token);
+          handelToken(response.data.token);
+          // const response_refresh = await axios.get(
+          //   refresh_url + "/add_refreshToken",
+          //   {
+          //     params: { id: response.data.id },
+          //   }
+          // );
+          // if (response_refresh.data.error) {
+          //   showBoundary(response_refresh.data.error);
+          // }
           setRegBut(false);
           toast.success("Successfully Registered");
           navigator("/");
