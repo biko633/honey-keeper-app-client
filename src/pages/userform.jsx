@@ -24,29 +24,30 @@ import useLocalStorage from "use-local-storage";
  */
 export const UserForm = () => {
   useEffect(() => {
+    async function getID() {
+      const navigator = useNavigate();
+      const [token, setToken] = useLocalStorage("token", "");
+      // const [cookies, _] = useCookies(["token"]);
+      const user_url = import.meta.env.VITE_USER_URL;
+      // const token = cookies.token;
+      const response = await axios.get(user_url + "/userId", {
+        params: {
+          token: token,
+        },
+      });
+      if (response.data.userID) {
+        toast("You are already logged in");
+        navigator("/");
+      }
+    }
     getID();
   }, []);
 
   return <LoginForm />;
 };
 
-const [token, setToken] = useLocalStorage("token", "");
-async function getID() {
-  const navigator = useNavigate();
-  // const [token, setToken] = useLocalStorage("token", "");
-  // const [cookies, _] = useCookies(["token"]);
-  const user_url = import.meta.env.VITE_USER_URL;
-  // const token = cookies.token;
-  const response = await axios.get(user_url + "/userId", {
-    params: {
-      token: token,
-    },
-  });
-  if (response.data.userID) {
-    toast("You are already logged in");
-    navigator("/");
-  }
-}
+// const [token, setToken] = useLocalStorage("token", "");
+
 /**
  * Renders a login form component.
  *
@@ -65,7 +66,7 @@ const LoginForm = () => {
   );
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
-  // const [token, setToken] = useLocalStorage("token", "");
+  const [token, setToken] = useLocalStorage("token", "");
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
