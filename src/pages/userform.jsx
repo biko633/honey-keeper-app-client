@@ -24,17 +24,16 @@ import useLocalStorage from "use-local-storage";
  */
 export const UserForm = () => {
   const navigator = useNavigate();
-  // const [tempToken, _] = useLocalStorage("token", "");
+  const [token, setToken] = useLocalStorage("token", "");
   // const [cookies, _] = useCookies(["token"]);
   const user_url = import.meta.env.VITE_USER_URL;
-  const tempToken = localStorage.getItem("token") || "";
 
   useEffect(() => {
     async function getID() {
       // const token = cookies.token;
       const response = await axios.get(user_url + "/userId", {
         params: {
-          token: tempToken,
+          token: token,
         },
       });
       if (response.data.userID) {
@@ -66,7 +65,7 @@ const LoginForm = () => {
   );
   const [answer, setAnswer] = useState("");
   const [visible, setVisible] = useState(false);
-  const [token, setToken] = useLocalStorage("token", "");
+
   const navigator = useNavigate();
   const user_url = import.meta.env.VITE_USER_URL;
   const refresh_url = import.meta.env.VITE_REFRESH_URL;
@@ -94,6 +93,7 @@ const LoginForm = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    const [token, setToken] = useLocalStorage("token", "");
     const btn = document.getElementsByClassName("button-22");
     for (let i = 0; i < btn.length; i++) {
       btn[i].disabled = true;
