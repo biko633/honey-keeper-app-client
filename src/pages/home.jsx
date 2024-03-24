@@ -115,26 +115,26 @@ export const Home = () => {
         });
         console.log(response);
 
-        if (response.data.no_token) {
-          handelRefreshToken(userID);
-        } else {
-          const response_2 = await axios.put(note_url, {
-            noteID: response.data._id,
-            userID,
-            headers: {
-              Authorization: token,
-            },
-          });
-          setNotes((prevNotes) => {
-            return [...prevNotes, response.data];
-          });
-          setNote({
-            title: "",
-            content: "",
-          });
-          clearContent();
-          toast.success("Successfully added a new note");
-        }
+        // if (response.data.no_token) {
+        //   handelRefreshToken(userID);
+        // } else {
+        const response_2 = await axios.put(note_url, {
+          noteID: response.data._id,
+          userID,
+          headers: {
+            Authorization: token,
+          },
+        });
+        setNotes((prevNotes) => {
+          return [...prevNotes, response.data];
+        });
+        setNote({
+          title: "",
+          content: "",
+        });
+        clearContent();
+        toast.success("Successfully added a new note");
+        // }
       } catch (err) {
         showBoundary(err);
       }
@@ -158,9 +158,9 @@ export const Home = () => {
           },
         });
         console.log(response);
-        if (response.data.no_token) {
-          handelRefreshToken(userID);
-        }
+        // if (response.data.no_token) {
+        //   handelRefreshToken(userID);
+        // }
       } catch (err) {
         showBoundary(err);
       }
