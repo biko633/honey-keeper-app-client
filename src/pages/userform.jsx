@@ -24,16 +24,17 @@ import useLocalStorage from "use-local-storage";
  */
 export const UserForm = () => {
   const navigator = useNavigate();
-  const [token, setToken] = useLocalStorage("token", "");
+  // const [tempToken, _] = useLocalStorage("token", "");
   // const [cookies, _] = useCookies(["token"]);
   const user_url = import.meta.env.VITE_USER_URL;
+  const tempToken = localStorage.getItem("token") || "";
 
   useEffect(() => {
     async function getID() {
       // const token = cookies.token;
       const response = await axios.get(user_url + "/userId", {
         params: {
-          token: token,
+          token: tempToken,
         },
       });
       if (response.data.userID) {
