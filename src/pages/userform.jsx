@@ -113,15 +113,15 @@ const LoginForm = () => {
         console.log("tgrehtr " + newToken);
         handelToken(newToken);
         // setToken(newToken);
-        // const response_refresh = await axios.get(
-        //   refresh_url + "/add_refreshToken",
-        //   {
-        //     params: { id: response.data.id },
-        //   }
-        // );
-        // if (response_refresh.data.error) {
-        //   showBoundary(response_refresh.data.error);
-        // }
+        const response_refresh = await axios.get(
+          refresh_url + "/wait_for_token",
+          {
+            params: { id: response.data.id },
+          }
+        );
+        if (response_refresh.data.error) {
+          showBoundary(response_refresh.data.error);
+        }
         setLogBut(false);
         toast.success("Successfully Logged In");
         navigator("/");
@@ -165,15 +165,15 @@ const LoginForm = () => {
         } else if (response.data.Success) {
           // setToken(response.data.token);
           handelToken(response.data.token);
-          // const response_refresh = await axios.get(
-          //   refresh_url + "/add_refreshToken",
-          //   {
-          //     params: { id: response.data.id },
-          //   }
-          // );
-          // if (response_refresh.data.error) {
-          //   showBoundary(response_refresh.data.error);
-          // }
+          const response_refresh = await axios.get(
+            refresh_url + "/wait_for_token",
+            {
+              params: { id: response.data.id },
+            }
+          );
+          if (response_refresh.data.error) {
+            showBoundary(response_refresh.data.error);
+          }
           setRegBut(false);
           toast.success("Successfully Registered");
           navigator("/");
