@@ -172,8 +172,9 @@ const LoginForm = () => {
             setLogBut(false);
           } else if (response.data.Success) {
             console.log("success is here " + response.data.Success);
-            setToken(response.data.token);
-            setToken(response.data.token);
+            localStorage.setItem("token", response.data.token);
+            // setToken(response.data.token);
+            // setToken(response.data.token);
             // const response_refresh = await axios.get(
             //   refresh_url + "/add_refreshToken",
             //   {
