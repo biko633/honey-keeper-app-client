@@ -23,12 +23,13 @@ import useLocalStorage from "use-local-storage";
  * @return {JSX.Element} The LoginForm component to be rendered.
  */
 export const UserForm = () => {
+  const navigator = useNavigate();
+  const [token, setToken] = useLocalStorage("token", "");
+  // const [cookies, _] = useCookies(["token"]);
+  const user_url = import.meta.env.VITE_USER_URL;
+
   useEffect(() => {
     async function getID() {
-      const navigator = useNavigate();
-      const [token, setToken] = useLocalStorage("token", "");
-      // const [cookies, _] = useCookies(["token"]);
-      const user_url = import.meta.env.VITE_USER_URL;
       // const token = cookies.token;
       const response = await axios.get(user_url + "/userId", {
         params: {
@@ -45,8 +46,6 @@ export const UserForm = () => {
 
   return <LoginForm />;
 };
-
-// const [token, setToken] = useLocalStorage("token", "");
 
 /**
  * Renders a login form component.
@@ -172,8 +171,6 @@ const LoginForm = () => {
             setLogBut(false);
           } else if (response.data.Success) {
             setToken(response.data.token);
-            setToken(response.data.token);
-            console.log(response);
             // const response_refresh = await axios.get(
             //   refresh_url + "/add_refreshToken",
             //   {
