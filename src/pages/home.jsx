@@ -148,14 +148,15 @@ export const Home = () => {
       });
     });
     console.log("the notes is " + notes);
-    deleteNoteServer();
+
+    deleteNoteServer(this.did);
   }
 
-  const deleteNoteServer = async () => {
+  const deleteNoteServer = async (NID) => {
     try {
       const response = await axios.put(note_url + "/deletedNote", {
         userID,
-        noteID: this.did,
+        noteID: NID,
         headers: {
           Authorization: token,
         },
