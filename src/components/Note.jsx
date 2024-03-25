@@ -17,17 +17,17 @@ function Note(props) {
     props.onDelete(props.id);
   }
 
-  const english = /^[A-Za-z0-9!@#$%^&*()]*$/;
-  var align = "left";
+  // const english = /^[A-Za-z0-9!@#$%^&*()]*$/;
+  // var align = "left";
 
-  if (!english.test(props.title)) {
-    align = "right";
-  }
+  // if (!english.test(props.title)) {
+  //   align = "right";
+  // }
 
   const cleanContent = cleanHTML(props.content);
 
   return (
-    <div className="note" style={{ textAlign: align }}>
+    <div className="note">
       <h1>{props.title}</h1>
       <p dangerouslySetInnerHTML={{ __html: cleanContent }}></p>
       <IconButton aria-label="delete" onClick={() => setConfirmOpen(true)}>
