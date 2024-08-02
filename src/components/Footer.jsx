@@ -9,7 +9,9 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer>
-      <p>Made by biko633 {year}</p>
+      <p>
+        Made by <a href="https://github.com/biko633">biko633</a> {year}
+      </p>
     </footer>
   );
 }
