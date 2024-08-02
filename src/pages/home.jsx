@@ -151,6 +151,7 @@ export const Home = () => {
     console.log("the notes is " + notes);
 
     deleteNoteServer(this.did);
+    toast.success("Successfully deleted a note");
   }
 
   const deleteNoteServer = async (NID) => {
