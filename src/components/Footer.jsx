@@ -10,7 +10,7 @@ function Footer() {
   return (
     <footer>
       <p>
-        Made by <a href="https://github.com/biko633">biko633</a> {year}
+        Made by <a href="https://github.com/biko633">ahmed yeslam</a> {year}
       </p>
     </footer>
   );
